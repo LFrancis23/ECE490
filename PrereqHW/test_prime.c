@@ -42,12 +42,13 @@ bool test_prime() {
     } else {
         int i;
 	// Try 10 random factors
-        for (i = 0; i < 20; ++i)
+        for (i = 0; i < 20; ++i){
             factor = randint(2, n/2);
             if (n % factor == 0) {
                 fprintf(stderr, "Fail for is_prime(%d, %ld)\n", n, factor);
                 return false;
             }
+        }
         return true;
     }
 }
