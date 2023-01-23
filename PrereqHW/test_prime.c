@@ -1,7 +1,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 // DONOT edit this 
 int randint(int min, int max) {
@@ -10,22 +9,28 @@ int randint(int min, int max) {
 
 // EDIT this function. DONOT edit the signature of the function
 bool is_prime(long n, long* factor_p) {
+    //Special case for 1 and 2
     if (n <= 2){
         return (n == 2) ? true : false;
     }
+    //Static flag variable for recursion
     static int started = 0;
     if (!started){
+        //New n being checked, start factor at 2
         *factor_p = 2;
         started = 1;
     }
+    //Divisor with no remainder, that's a factor! Composite!
     if (n % *factor_p == 0){
         started = 0;
         return 0;
     }
+    //Only check factors below sqrt(n)
     if (*factor_p * *factor_p > n){
         started = 0;
         return 1;
     }
+    //Increment factor
     ++*factor_p;
     return is_prime(n, factor_p);
 }
