@@ -11,21 +11,23 @@ int randint(int min, int max) {
 // EDIT this function. DONOT edit the signature of the function
 bool is_prime(long n, long* factor_p) {
     if (n <= 2){
-        return (n == 2) ? true: false;
+        return (n == 2) ? true : false;
     }
-
-    *factor_p = 2;
-
-    while (n != *factor_p){
-        if(n % *factor_p == 0){
-            return 0;
-        }
-        if (*factor_p * *factor_p > n){
-            return true;
-        }
-        ++*factor_p;
+    static int started = 0;
+    if (!started){
+        *factor_p = 2;
+        started = 1;
     }
-    return 0; 
+    if (n % *factor_p == 0){
+        started = 0;
+        return 0;
+    }
+    if (*factor_p * *factor_p > n){
+        started = 0;
+        return 1;
+    }
+    ++*factor_p;
+    return is_prime(n, factor_p);
 }
 
 // DONOT edit this function
